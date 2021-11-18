@@ -1,0 +1,56 @@
+﻿<Window x:Class="AppWindowsWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AppWindowsWPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <StackPanel 
+                VerticalAlignment="Center">
+        <TextBlock Text="Reposition and size window" />
+        <Grid Height="50"
+              Width="100">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Row="0"
+                    Grid.Column="0"
+                    Click="PositionWindowClick" />
+            <Button Grid.Row="0"
+                    Grid.Column="1"
+                    Click="PositionWindowClick" />
+            <Button Grid.Row="0"
+                    Grid.Column="2"
+                    Click="PositionWindowClick" />
+
+            <Button Grid.Row="1"
+                    Grid.Column="0"
+                    Click="PositionWindowClick" />
+            <Button Grid.Row="1"
+                    Grid.Column="1"
+                    Click="PositionWindowClick" />
+            <Button Grid.Row="1"
+                    Grid.Column="2"
+                    Click="PositionWindowClick" />
+        </Grid>
+        <Button Content="Change Icon"
+                Click="ChangeIconClick" />
+        <StackPanel Orientation="Horizontal">
+            <Button Content="CompactOverlay"
+                    Click="ChangePresenterClick" />
+            <Button Content="FullScreen"
+                    Click="ChangePresenterClick" />
+            <Button Content="Overlapped"
+                    Click="ChangePresenterClick" />
+        </StackPanel>
+
+    </StackPanel>
+</Window>

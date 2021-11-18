@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "AppWindowSample": {
+      "commandName": "MsixPackage"
+    }
+  }
+}
