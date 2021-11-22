@@ -17,6 +17,7 @@ using Windows.Foundation.Collections;
 using Windows.Graphics;
 using Windows.Graphics.Display;
 using AppWindowCore;
+using Windows.UI;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -56,6 +57,75 @@ namespace AppWindowSample
             {
                 appWindow.SetPresenter(presenterKind);
             }
+        }
+
+        private void OverlappedPresenterPropertyCheckChanged(object sender, RoutedEventArgs e)
+        {
+            var presenter = appWindow.Presenter as OverlappedPresenter;
+            if (presenter is null)
+            {
+                return;
+            }
+
+            var check = sender as CheckBox;
+            var propertyName = check.Content as string;
+            var property = typeof(OverlappedPresenter).GetProperty(propertyName);
+            property.SetValue(presenter, check.IsChecked);
+        }
+
+        private void OverlappedPresenterTitleBarAndBorderCheckChanged(object sender, RoutedEventArgs e)
+        {
+            var presenter = appWindow.Presenter as OverlappedPresenter;
+            if (presenter is null)
+            {
+                return;
+            }
+            var hasBorder = HasBorderCheckBox.IsChecked ?? true;
+            var hasTitleBar = HasTitleBarCheckBox.IsChecked ?? true;
+            presenter.SetBorderAndTitleBar(hasBorder, hasTitleBar);
+        }
+
+        private Random rnd { get; } = new Random();
+
+        private Color GetRandomColor()
+        {
+            return Color.FromArgb(
+                (byte)rnd.Next(0, 255),
+                (byte)rnd.Next(0, 255),
+                (byte)rnd.Next(0, 255),
+                (byte)rnd.Next(0, 255));
+        }
+        private void TitleBarRandomColorClick(object sender, RoutedEventArgs e)
+        {
+            var property = typeof(AppWindowTitleBar).GetProperty((sender as Button).Content.ToString());
+            var clr = GetRandomColor();
+            property.SetValue(appWindow.TitleBar, clr);
+        }
+
+        private void ChangeIconAndMenuClick(object sender, RoutedEventArgs e)
+        {
+
+            if (Enum.TryParse<IconShowOptions>((sender as Button).Content.ToString(), out var showOptions))
+            {
+                appWindow.TitleBar.IconShowOptions = showOptions;
+            }
+        }
+
+        private void ToggleClientAreaChanged(object sender, RoutedEventArgs e)
+        {
+            appWindow.TitleBar.ExtendsContentIntoTitleBar = (sender as CheckBox).IsChecked??false;
+        }
+
+        private void SetDragAreaClick(object sender, RoutedEventArgs e)
+        {
+            
+            var newHeight = (int)rnd.Next(0, 200);
+            DragAreaBorder.Height = newHeight;
+            DragAreaBorder.Background = new SolidColorBrush(GetRandomColor());
+            appWindow.TitleBar.SetDragRectangles(new[] {
+                new RectInt32(0,0, 
+                    (int)(DragAreaBorder.ActualWidth*this.Content.XamlRoot.RasterizationScale), 
+                    (int)(newHeight*this.Content.XamlRoot.RasterizationScale) + (appWindow.TitleBar.ExtendsContentIntoTitleBar?0:appWindow.TitleBar.Height)) });
         }
     }
 

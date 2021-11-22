@@ -5,52 +5,126 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AppWindowsWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <StackPanel 
-                VerticalAlignment="Center">
-        <TextBlock Text="Reposition and size window" />
-        <Grid Height="50"
-              Width="100">
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
+        Title="MainWindow"
+        Height="450"
+        Width="800">
+    <Grid>
+        <Border Background="Transparent"
+                Height="0"
+                Opacity="0.5"
+                VerticalAlignment="Top"
+                x:Name="DragAreaBorder" />
+        <StackPanel VerticalAlignment="Center">
+            <TextBlock Text="Reposition and size window" />
+            <Grid Height="50"
+                  Width="100">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
 
-            <Button Grid.Row="0"
-                    Grid.Column="0"
-                    Click="PositionWindowClick" />
-            <Button Grid.Row="0"
-                    Grid.Column="1"
-                    Click="PositionWindowClick" />
-            <Button Grid.Row="0"
-                    Grid.Column="2"
-                    Click="PositionWindowClick" />
+                <Button Grid.Row="0"
+                        Grid.Column="0"
+                        Click="PositionWindowClick" />
+                <Button Grid.Row="0"
+                        Grid.Column="1"
+                        Click="PositionWindowClick" />
+                <Button Grid.Row="0"
+                        Grid.Column="2"
+                        Click="PositionWindowClick" />
 
-            <Button Grid.Row="1"
-                    Grid.Column="0"
-                    Click="PositionWindowClick" />
-            <Button Grid.Row="1"
-                    Grid.Column="1"
-                    Click="PositionWindowClick" />
-            <Button Grid.Row="1"
-                    Grid.Column="2"
-                    Click="PositionWindowClick" />
-        </Grid>
-        <Button Content="Change Icon"
-                Click="ChangeIconClick" />
-        <StackPanel Orientation="Horizontal">
-            <Button Content="CompactOverlay"
-                    Click="ChangePresenterClick" />
-            <Button Content="FullScreen"
-                    Click="ChangePresenterClick" />
-            <Button Content="Overlapped"
-                    Click="ChangePresenterClick" />
+                <Button Grid.Row="1"
+                        Grid.Column="0"
+                        Click="PositionWindowClick" />
+                <Button Grid.Row="1"
+                        Grid.Column="1"
+                        Click="PositionWindowClick" />
+                <Button Grid.Row="1"
+                        Grid.Column="2"
+                        Click="PositionWindowClick" />
+            </Grid>
+            <Button Content="Change Icon"
+                    Click="ChangeIconClick" />
+            <StackPanel Orientation="Horizontal">
+                <Button Content="CompactOverlay"
+                        Click="ChangePresenterClick" />
+                <Button Content="FullScreen"
+                        Click="ChangePresenterClick" />
+                <Button Content="Overlapped"
+                        Click="ChangePresenterClick" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <CheckBox Content="IsAlwaysOnTop"
+                          Checked="OverlappedPresenterPropertyCheckChanged"
+                          Unchecked="OverlappedPresenterPropertyCheckChanged" />
+                <CheckBox Content="IsMaximizable"
+                          Checked="OverlappedPresenterPropertyCheckChanged"
+                          Unchecked="OverlappedPresenterPropertyCheckChanged" />
+                <CheckBox Content="IsMinimizable"
+                          Checked="OverlappedPresenterPropertyCheckChanged"
+                          Unchecked="OverlappedPresenterPropertyCheckChanged" />
+                <CheckBox Content="IsModal"
+                          Checked="OverlappedPresenterPropertyCheckChanged"
+                          Unchecked="OverlappedPresenterPropertyCheckChanged" />
+                <CheckBox Content="IsResizable"
+                          Checked="OverlappedPresenterPropertyCheckChanged"
+                          Unchecked="OverlappedPresenterPropertyCheckChanged" />
+                <CheckBox Content="HasTitleBar"
+                          x:Name="HasTitleBarCheckBox"
+                          Checked="OverlappedPresenterTitleBarAndBorderCheckChanged"
+                          Unchecked="OverlappedPresenterTitleBarAndBorderCheckChanged" />
+                <CheckBox Content="HasBorder"
+                          x:Name="HasBorderCheckBox"
+                          Checked="OverlappedPresenterTitleBarAndBorderCheckChanged"
+                          Unchecked="OverlappedPresenterTitleBarAndBorderCheckChanged" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button Content="BackgroundColor"
+                        Click="TitleBarRandomColorClick" />
+                <Button Content="ButtonBackgroundColor"
+                        Click="TitleBarRandomColorClick" />
+                <Button Content="ButtonForegroundColor"
+                        Click="TitleBarRandomColorClick" />
+                <Button Content="ButtonHoverBackgroundColor"
+                        Click="TitleBarRandomColorClick" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button Content="ButtonHoverForegroundColor"
+                        Click="TitleBarRandomColorClick" />
+                <Button Content="ButtonInactiveBackgroundColor"
+                        Click="TitleBarRandomColorClick" />
+                <Button Content="ButtonInactiveForegroundColor"
+                        Click="TitleBarRandomColorClick" />
+                <Button Content="ButtonPressedBackgroundColor"
+                        Click="TitleBarRandomColorClick" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button Content="ButtonPressedForegroundColor"
+                        Click="TitleBarRandomColorClick" />
+                <Button Content="ForegroundColor"
+                        Click="TitleBarRandomColorClick" />
+                <Button Content="InactiveBackgroundColor"
+                        Click="TitleBarRandomColorClick" />
+                <Button Content="InactiveForegroundColor"
+                        Click="TitleBarRandomColorClick" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button Content="ShowIconAndSystemMenu"
+                        Click="ChangeIconAndMenuClick" />
+                <Button Content="HideIconAndSystemMenu"
+                        Click="ChangeIconAndMenuClick" />
+            </StackPanel>
+            <CheckBox Content="ExtendClientAreaIntoTitlebar"
+                      Checked="ToggleClientAreaChanged"
+                      Unchecked="ToggleClientAreaChanged" />
+            <Button Content="Set drag area"
+                    Click="SetDragAreaClick" />
         </StackPanel>
-
-    </StackPanel>
+    </Grid>
 </Window>
