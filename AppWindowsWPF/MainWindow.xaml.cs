@@ -14,7 +14,7 @@ namespace AppWindowsWPF
 {
     public partial class MainWindow : Window
     {
-        AppWindow appWindow; 
+        AppWindow appWindow;
         public MainWindow()
         {
             InitializeComponent();
@@ -124,10 +124,20 @@ namespace AppWindowsWPF
             var newHeight = (int)rnd.Next(0, 200);
             DragAreaBorder.Height = newHeight;
             DragAreaBorder.Background = new SolidColorBrush(GetRandomColor());
+
+            PresentationSource source = PresentationSource.FromVisual(this);
+
+            double scaleX = 1.0, scaleY = 1.0;
+            if (source != null)
+            {
+                scaleX = source.CompositionTarget.TransformToDevice.M11;
+                scaleY = source.CompositionTarget.TransformToDevice.M22;
+            }
+
             appWindow.TitleBar.SetDragRectangles(new[] {
                 new RectInt32(0,0,
-                    (int)DragAreaBorder.ActualWidth,
-                    (int)newHeight + (appWindow.TitleBar.ExtendsContentIntoTitleBar?0:appWindow.TitleBar.Height)) });
+                    (int)(DragAreaBorder.ActualWidth * scaleX),
+                    (int)((newHeight + (appWindow.TitleBar.ExtendsContentIntoTitleBar?0:appWindow.TitleBar.Height))*scaleY)) });
         }
     }
 }
