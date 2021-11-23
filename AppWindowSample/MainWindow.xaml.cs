@@ -34,7 +34,7 @@ namespace AppWindowSample
         {
             this.InitializeComponent();
 
-            appWindow = this.GetAppWindow();
+            appWindow = this.GetAppWindowForWinUI();
 
         }
 

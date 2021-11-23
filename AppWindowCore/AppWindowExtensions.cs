@@ -12,42 +12,36 @@ namespace AppWindowCore;
 
 public static class AppWindowExtensions
 {
-    public static AppWindow GetAppWindow(this Microsoft.UI.Xaml.Window window)
+    public static AppWindow GetAppWindowForWinUI(this Microsoft.UI.Xaml.Window window)
     {
-        IntPtr windowHandle = WinRT.Interop.WindowNative.GetWindowHandle(window);
+        var windowHandle = WinRT.Interop.WindowNative.GetWindowHandle(window);
 
         return GetAppWindowFromWindowHandle(windowHandle);
     }
-    public static AppWindow GetAppWindow(this Window wpfWindow)
+    public static AppWindow GetAppWindowForWPF(this Window window)
     {
-        // Get the HWND of the top level WPF window.
-        var helper = new WindowInteropHelper(wpfWindow);
-        IntPtr hwnd = (HwndSource.FromHwnd(helper.EnsureHandle())
-            as System.Windows.Interop.IWin32Window).Handle;
-
+        var hwnd = new WindowInteropHelper(window).EnsureHandle();
         return GetAppWindowFromWindowHandle(hwnd);
     }
-    public static AppWindow GetAppWindow(this Form winForm)
+    public static AppWindow GetAppWindowForWinForms(this Form window)
     {
-        return GetAppWindowFromWindowHandle(winForm.Handle);
+        return GetAppWindowFromWindowHandle(window.Handle);
     }
 
     private static AppWindow GetAppWindowFromWindowHandle(IntPtr windowHandle)
     {
-        WindowId windowId;
-        windowId = Win32Interop.GetWindowIdFromWindow(windowHandle);
-
+        var windowId = Win32Interop.GetWindowIdFromWindow(windowHandle);
         return AppWindow.GetFromWindowId(windowId);
     }
 
-    public static void Reposition(this AppWindow appWindow, int row, int col)
+    public static void Reposition(this AppWindow appWindow, int row, int col, int totalRows = 2, int totalColumns = 3)
     {
         IntPtr hwndDesktop = PInvoke.User32.GetDesktopWindow();
         PInvoke.RECT rectParent;
         PInvoke.User32.GetClientRect(hwndDesktop, out rectParent);
 
-        var width = (int)(rectParent.right - rectParent.left) / 3;
-        var height = (int)(rectParent.bottom - rectParent.top) / 2;
+        var width = (int)(rectParent.right - rectParent.left) / totalColumns;
+        var height = (int)(rectParent.bottom - rectParent.top) / totalRows;
 
 
         var winPosition = new RectInt32(width * col, height * row, width, height);

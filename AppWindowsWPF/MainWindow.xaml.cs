@@ -26,7 +26,7 @@ namespace AppWindowsWPF
                 return;
             }
 
-            appWindow = this.GetAppWindow();
+            appWindow = this.GetAppWindowForWPF();
 
         }
 
