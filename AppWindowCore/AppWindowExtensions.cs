@@ -43,7 +43,6 @@ public static class AppWindowExtensions
         var width = (int)(rectParent.right - rectParent.left) / totalColumns;
         var height = (int)(rectParent.bottom - rectParent.top) / totalRows;
 
-
         var winPosition = new RectInt32(width * col, height * row, width, height);
 
         appWindow.MoveAndResize(winPosition);
@@ -54,6 +53,5 @@ public static class AppWindowExtensions
         var path = Assembly.GetExecutingAssembly().Location;
         var filePath = Path.Combine(Path.GetDirectoryName(path), iconFileName);
         appWindow.SetIcon(filePath);
-
     }
 }

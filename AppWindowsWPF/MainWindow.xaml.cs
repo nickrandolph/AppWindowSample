@@ -89,6 +89,7 @@ namespace AppWindowsWPF
 
         private Random rnd { get; } = new Random();
 
+
         private System.Windows.Media.Color GetRandomColor()
         {
             return System.Windows.Media.Color.FromArgb(
@@ -97,10 +98,20 @@ namespace AppWindowsWPF
                 (byte)rnd.Next(0, 255),
                 (byte)rnd.Next(0, 255));
         }
+
+        private Windows.UI.Color GetRandomWindowsColor()
+        {
+            return Windows.UI.Color.FromArgb(
+                (byte)rnd.Next(0, 255),
+                (byte)rnd.Next(0, 255),
+                (byte)rnd.Next(0, 255),
+                (byte)rnd.Next(0, 255));
+        }
+
         private void TitleBarRandomColorClick(object sender, RoutedEventArgs e)
         {
             var property = typeof(AppWindowTitleBar).GetProperty((sender as Button).Content.ToString());
-            var clr = GetRandomColor();
+            var clr = GetRandomWindowsColor();
             property.SetValue(appWindow.TitleBar, clr);
         }
 
